@@ -11,41 +11,39 @@ To do:
 
 
 ###Key points
-=======
 Utilizing Ember's data bindings and observers makes auto-updating a D3.js rendered chart, realtively easy.  
 
 In your Ember Component, declare three functions:
 
 -1. A function to wrap your d3.js javascript:
 
-		'draw: function(){
+		draw: function(){
 			var data = this.get('componentData);
 			//your d3 code here
-		}'
+		}
 
 -2. A function to execute the d3.js code:
 
 	
-		`didInsertElement: function(){
+		didInsertElement: function(){
 			this.draw();
-		}'
+		}
 
 -3. And a function to observe changes on your model, then rerender your component when those changes occur.
 
-		'dataDidChange: function(){
+		dataDidChange: function(){
 			this.rerender();
 		}.observes('this.componentData')
 		
 		
 Then in your template, simply assign the `componentData` to a data array declared within your `Ember.ArrayController`, and you're set.
 
-		`<script type="text/x-handlebars" id="index">
+		<script type="text/x-handlebars" id="index">
 			{{your-component componentData=controllerData}}
 		</script>
 
 
 ##Contact
-=====
 Feel free to make a pull request if you have any additional ideas on how to improve this code.
 
 Thanks!
