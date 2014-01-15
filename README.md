@@ -1,36 +1,54 @@
-starter-kit
+Ember Update Chart
 ===========
 
-A starter kit for Ember
+This is a small example of how to auto-update a [d3.js](https://github.com/mbostock/d3/wiki/Gallery) barchart within your Ember.js app.
 
-Your Ember.js project is almost ready! Here's how to get started:
+To do:
 
-- Start writing your app in js/app.js.
+- Utilize arrayComputed to manage changes to the data array.
 
-- Describe your application HTML in index.html.
+- Provide more chart examples (Line, Pie, Donut, etc.)
 
-- During development, you can link to js/libs/ember-*.js to get the
-  unminified version of Ember.js.
 
-- Add CSS to css/style.css
+###Key points
+=======
+Utilizing Ember's data bindings and observers makes auto-updating a D3.js rendered chart, realtively easy.  
 
-- Open index.html in your browser
+In your Ember Component, declare three functions:
 
-Tests
+-1. A function to wrap your d3.js javascript:
+
+		'draw: function(){
+			var data = this.get('componentData);
+			//your d3 code here
+		}'
+
+-2. A function to execute the d3.js code:
+
+	
+		`didInsertElement: function(){
+			this.draw();
+		}'
+
+-3. And a function to observe changes on your model, then rerender your component when those changes occur.
+
+		'dataDidChange: function(){
+			this.rerender();
+		}.observes('this.componentData')
+		
+		
+Then in your template, simply assign the `componentData` to a data array declared within your `Ember.ArrayController`, and you're set.
+
+		`<script type="text/x-handlebars" id="index">
+			{{your-component componentData=controllerData}}
+		</script>
+
+
+##Contact
 =====
+Feel free to make a pull request if you have any additional ideas on how to improve this code.
 
-This starter kit comes with an integration test sample, written for QUnit runner. 
+Thanks!
 
-You can run the tests by opening the `index.html?test` page in your browser.
+Twitter: @malchak
 
-The test is located in the `tests/tests.js` file. You can see how such an 
-integration test should be written, using QUnit assertions and ember-testing helpers.
-
-For more information about ember-testing package see [ember-testing](http://emberjs.com/guides/testing/integration/)
-
-For more information about the QUnit testing framework, see [QUnit](http://qunitjs.com/)
-
-Contact
-====
-
-www.emberjs.com
